@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotellBookWF", "HotellBookWF\HotellBookWF.csproj", "{92562235-71C2-49A1-8783-A603FB7CB40D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotellWeb", "WebApplication1\HotellWeb.csproj", "{09385BC3-E3B4-444A-805C-D53A1F1DEE64}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92562235-71C2-49A1-8783-A603FB7CB40D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92562235-71C2-49A1-8783-A603FB7CB40D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92562235-71C2-49A1-8783-A603FB7CB40D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92562235-71C2-49A1-8783-A603FB7CB40D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09385BC3-E3B4-444A-805C-D53A1F1DEE64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09385BC3-E3B4-444A-805C-D53A1F1DEE64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09385BC3-E3B4-444A-805C-D53A1F1DEE64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09385BC3-E3B4-444A-805C-D53A1F1DEE64}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
