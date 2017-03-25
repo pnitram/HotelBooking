@@ -225,7 +225,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HotellBookWF\HotelBookingBackend.csproj">
+    <ProjectReference Include="..\HotelBookingBackend\HotelBookingBackend.csproj">
       <Project>{92562235-71c2-49a1-8783-a603fb7cb40d}</Project>
       <Name>HotelBookingBackend</Name>
     </ProjectReference>
