@@ -16,7 +16,7 @@ namespace HotellBookWF
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new HotellBookForm());
+            Application.Run(new HotelBookForm());
         }
     }
 }
