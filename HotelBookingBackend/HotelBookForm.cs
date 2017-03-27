@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 
 namespace HotellBookWF
 {
-    public partial class HotellBookForm : Form
+    public partial class HotelBookForm : Form
     {
         private MySqlCommandBuilder _cb;
         private MySqlCommand _cmd;
@@ -22,7 +22,7 @@ namespace HotellBookWF
         private List<string> _tempList = new List<string>();
         public BindingList<string> ResList;
 
-        public HotellBookForm()
+        public HotelBookForm()
         {
             InitializeComponent();
             Size = new Size(1100, 700);
@@ -64,9 +64,6 @@ namespace HotellBookWF
                 r.Field<DateTime>("datoTil").Month + "-" + r.Field<DateTime>("datoTil").Day).ToList();
 
             ResList = new BindingList<string>(_tempList);
-
-            //            ResList.Add("Lasse Berntzen);
-
             listBox1.DataSource = ResList;
         }
 
@@ -194,20 +191,45 @@ namespace HotellBookWF
             {
                 var item = e.Data.GetData(typeof(string));
                 var flooRoomNrLabel = c.Name;
-                c.Controls[0].Text = $"{flooRoomNrLabel}\n{item}";
-                c.BackColor = Color.Red;
+
                 MessageBox.Show(item.ToString());
 
                 char[] separatingChars = {':', '>', ' '};
                 var text = item.ToString();
                 var values = text.Split(separatingChars, StringSplitOptions.RemoveEmptyEntries);
 
-                var sql = "SELECT * FROM booking WHERE bookingId =" + values[0];
-                _da = new MySqlDataAdapter(sql, _dbconn);
-                _cb = new MySqlCommandBuilder(_da);
-                _ds.Tables["booking"].Rows[0]["romNr"] = c.Name;
-                _da.Update(_ds, "booking");
-                UpdateBookinListDb();
+                //var sql = "SELECT * FROM booking WHERE bookingId =" + values[0];
+                var sql ="SELECT * FROM booking WHERE (datoFra BETWEEN CAST('" + values[3] + "' AS DATE) AND CAST('" + values[4] + "' AS DATE) AND datotil BETWEEN CAST('" + values[3] + "' AS DATE) AND CAST('" + values[4] +"' AS DATE) AND romNr =" + c.Name +")";
+                using (MySqlCommand cmd = new MySqlCommand(sql, _dbconn))
+                {
+                    _dbconn.Open();
+                    var numRowsUpdated = cmd.ExecuteScalar();
+
+                    if (numRowsUpdated == null)
+                    {
+                        c.Controls[0].Text = $"{flooRoomNrLabel}\n{item}";
+                        c.BackColor = Color.Red;
+                        var sql2 = "SELECT * FROM booking WHERE bookingId =" + values[0];
+                        _da = new MySqlDataAdapter(sql2, _dbconn);
+                        _cb = new MySqlCommandBuilder(_da);
+                        _ds.Tables["booking"].Rows[0]["romNr"] = c.Name;
+                        _da.Update(_ds, "booking");
+                        ResList.Remove((string)item);
+
+                    }
+                    else
+                    {
+                        MessageBox.Show(@"Dette rommet er desverre resevert i løp av perioden " +values[3] + @" og " + values[4] + @". Venligst velg et annet rom.");
+                        this.Refresh();
+                        //                        FormClosed += (o, a) => new HotelBookForm().ShowDialog();
+                        //                        Hide();
+                        //                        Close();
+                    }
+                    _dbconn.Close();
+
+                }
+
+
 
 
                 /*
@@ -237,7 +259,7 @@ namespace HotellBookWF
                 //                foreach (var v in values)
                 //                    MessageBox.Show(v);
 
-                ResList.Remove((string) item);
+                
             }
         }
 

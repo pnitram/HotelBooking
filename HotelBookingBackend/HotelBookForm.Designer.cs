@@ -1,6 +1,6 @@
 ﻿namespace HotellBookWF
 {
-    partial class HotellBookForm
+    partial class HotelBookForm
     {
         /// <summary>
         /// Required designer variable.

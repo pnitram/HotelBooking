@@ -47,11 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HotellBookForm.cs">
+    <Compile Include="HotelBookForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HotellBookForm.Designer.cs">
-      <DependentUpon>HotellBookForm.cs</DependentUpon>
+    <Compile Include="HotelBookForm.Designer.cs">
+      <DependentUpon>HotelBookForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NewBookForm.cs">
       <SubType>Form</SubType>
@@ -61,8 +61,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="HotellBookForm.resx">
-      <DependentUpon>HotellBookForm.cs</DependentUpon>
+    <EmbeddedResource Include="HotelBookForm.resx">
+      <DependentUpon>HotelBookForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewBookForm.resx">
       <DependentUpon>NewBookForm.cs</DependentUpon>
