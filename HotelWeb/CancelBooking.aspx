@@ -8,19 +8,19 @@
             </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-5">
          <div>
                 <br/>Tast inn din bookingreferanse:&nbsp;&nbsp;<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+             
             </div>
-
             <br/>
-            <br />
             <asp:Button ID="Button1" runat="server" CssClass="btn" OnClick="Button1_Click" Text="Kanseller" />
-            <br />
-            <asp:Label ID="Label3" runat="server"></asp:Label>
             </div>
-        
+        <div class="col-md-3">
+        <asp:Label ID="Label3" runat="server" ></asp:Label>
         </div>
+        </div>
+    
    
 
 </asp:Content>

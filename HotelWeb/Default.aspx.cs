@@ -69,8 +69,7 @@ namespace WebApplication1
             catch
             {
                 Console.WriteLine(@"Error: DB not updated!");
-            }
-            //TextBox1.Text = Calendar1.SelectedDate.ToString("yyyy-M-dd");
+            }//TextBox1.Text = Calendar1.SelectedDate.ToString("yyyy-M-dd");
         }
     }
 }

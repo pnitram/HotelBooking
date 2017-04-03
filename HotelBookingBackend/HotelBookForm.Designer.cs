@@ -35,6 +35,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,6 +44,7 @@
             this.monthCalendar1.Location = new System.Drawing.Point(51, 56);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 0;
+            this.monthCalendar1.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateSelected);
             // 
             // tabControl1
             // 
@@ -106,16 +108,25 @@
             this.listBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDown);
             this.listBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseMove);
             // 
-            // HotellBookForm
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(2046, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 32);
+            this.label1.TabIndex = 4;
+            // 
+            // HotelBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(3206, 1204);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.monthCalendar1);
-            this.Name = "HotellBookForm";
+            this.Name = "HotelBookForm";
             this.Text = "Hotell booking";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.HotellBookForm_FormClosed);
             this.Load += new System.EventHandler(this.HotellBookForm_Load);
@@ -123,6 +134,7 @@
             this.DragOver += new System.Windows.Forms.DragEventHandler(this.HotellBookForm_DragOver);
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -135,6 +147,7 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

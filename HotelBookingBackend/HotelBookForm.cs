@@ -20,17 +20,34 @@ namespace HotellBookWF
         private string _myconnectionstring;
 
         private List<string> _tempList = new List<string>();
+
+        private DateTime myDateTime;
         public BindingList<string> ResList;
 
         public HotelBookForm()
         {
             InitializeComponent();
+            myDateTime = DateTime.Now.Date;
             Size = new Size(1100, 700);
+            label1.Text = "Viser bookinger for: " + myDateTime.ToString("yyyy-MM-dd");
+        }
+
+        private HotelBookForm(DateTime dateTime)
+        {
+            InitializeComponent();
+            myDateTime = dateTime;
+            Size = new Size(1100, 700);
+            label1.Text = "Viser bookinger for: " + myDateTime.ToString("yyyy-MM-dd");
         }
 
         private void HotellBookForm_Load(object sender, EventArgs e)
         {
             UpdateBookinListDb();
+            UpdateRooms();
+        }
+
+        private void UpdateRooms()
+        {
             AddRooms(tabPage1, 1, _dsRomRes);
             AddRooms(tabPage2, 2, _dsRomRes);
             AddRooms(tabPage3, 3, _dsRomRes);
@@ -120,18 +137,15 @@ namespace HotellBookWF
                 foreach (DataRow rad in ds.Tables["booking"].Rows)
                     try
                     {
-                            if ((DateTime) rad["datoFra"] >= DateTime.Now.Date && (int) rad["romNr"] == int.Parse(p.Name))
-                        {
-                            if (!((DateTime) rad["datoTil"] < DateTime.Now.Date) && (!((DateTime) rad["datoFra"] > DateTime.Now.Date)))
+                        if ((DateTime) rad["datoFra"] >= myDateTime && (int) rad["romNr"] == int.Parse(p.Name))
+                            if (!((DateTime) rad["datoTil"] < myDateTime) && !((DateTime) rad["datoFra"] > myDateTime))
                             {
-                                    MessageBox.Show("Rom funnet " + p.Name);
                                 p.BackColor = Color.Red;
                                 p.AllowDrop = false;
                                 l.Text = p.Name + $" - " + "Id: " + rad["bookingId"] + " " + rad["fornavn"] + " " +
                                          rad["etternavn"] + " " + rad["datoFra"].ToString().Substring(0, 10) + " > " +
                                          rad["datoTil"].ToString().Substring(0, 10);
                             }
-                        }
                     }
                     catch (Exception e)
                     {
@@ -166,7 +180,7 @@ namespace HotellBookWF
         private void doit2_click(object sender, EventArgs e)
         {
             var c = (Control) sender;
-            MessageBox.Show("doit2: Sender er " + c.Name);
+            MessageBox.Show("doit2: Sender er " + c.Name + " myDateTime er: " + myDateTime);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -199,7 +213,9 @@ namespace HotellBookWF
                 var values = text.Split(separatingChars, StringSplitOptions.RemoveEmptyEntries);
 
                 //var sql = "SELECT * FROM booking WHERE bookingId =" + values[0];
-                var sql ="SELECT * FROM booking WHERE (datoFra BETWEEN CAST('" + values[3] + "' AS DATE) AND CAST('" + values[4] + "' AS DATE) AND datotil BETWEEN CAST('" + values[3] + "' AS DATE) AND CAST('" + values[4] +"' AS DATE) AND romNr =" + c.Name +")";
+                var sql = "SELECT * FROM booking WHERE (datoFra BETWEEN CAST('" + values[3] + "' AS DATE) AND CAST('" +
+                          values[4] + "' AS DATE) AND datotil BETWEEN CAST('" + values[3] + "' AS DATE) AND CAST('" +
+                          values[4] + "' AS DATE) AND romNr =" + c.Name + ")";
                 using (MySqlCommand cmd = new MySqlCommand(sql, _dbconn))
                 {
                     _dbconn.Open();
@@ -214,52 +230,47 @@ namespace HotellBookWF
                         _cb = new MySqlCommandBuilder(_da);
                         _ds.Tables["booking"].Rows[0]["romNr"] = c.Name;
                         _da.Update(_ds, "booking");
-                        ResList.Remove((string)item);
-
+                        ResList.Remove((string) item);
                     }
                     else
                     {
-                        MessageBox.Show(@"Dette rommet er desverre resevert i løp av perioden " +values[3] + @" og " + values[4] + @". Venligst velg et annet rom.");
-                        this.Refresh();
+                        MessageBox.Show(@"Dette rommet er desverre resevert i løp av perioden " + values[3] + @" og " +
+                                        values[4] + @". Venligst velg et annet rom.");
+                        Refresh();
                         //                        FormClosed += (o, a) => new HotelBookForm().ShowDialog();
                         //                        Hide();
                         //                        Close();
                     }
                     _dbconn.Close();
-
                 }
-
-
 
 
                 /*
-                var sql = "UPDATE booking SET romNr=" + c.Name + " WHERE bookingId=" + values[0];
-                try
-                {
-                    using (MySqlConnection cn = new MySqlConnection(_myconnectionstring))
-                    {
-                        MySqlCommand cmd = new MySqlCommand();
-                        cmd.Connection = cn;
-                        cmd.CommandText = "UPDATE booking SET romNr=" + c.Name + " WHERE bookingId=" + values[0];
-                        cn.Open();
-                        int numRowsUpdated = cmd.ExecuteNonQuery();
-                        cmd.Dispose();
-                        MessageBox.Show(@"Rows affected: " + numRowsUpdated);
-                        UpdateBookinListDb();
-                    }
-                }
-                
-                catch
-                {
-                    MessageBox.Show(@"Error: DB not updated!");
-                }
-                */
+                                var sql = "UPDATE booking SET romNr=" + c.Name + " WHERE bookingId=" + values[0];
+                                try
+                                {
+                                    using (MySqlConnection cn = new MySqlConnection(_myconnectionstring))
+                                    {
+                                        MySqlCommand cmd = new MySqlCommand();
+                                        cmd.Connection = cn;
+                                        cmd.CommandText = "UPDATE booking SET romNr=" + c.Name + " WHERE bookingId=" + values[0];
+                                        cn.Open();
+                                        int numRowsUpdated = cmd.ExecuteNonQuery();
+                                        cmd.Dispose();
+                                        MessageBox.Show(@"Rows affected: " + numRowsUpdated);
+                                        UpdateBookinListDb();
+                                    }
+                                }
+                                
+                                catch
+                                {
+                                    MessageBox.Show(@"Error: DB not updated!");
+                                }
+                                */
 
                 //                 DEBUG
                 //                foreach (var v in values)
                 //                    MessageBox.Show(v);
-
-                
             }
         }
 
@@ -302,5 +313,33 @@ namespace HotellBookWF
         {
             UpdateBookinListDb();
         }
+
+        public void RefreshTabPageThreadSafe(int tabPage)
+        {
+            if (tabControl1.InvokeRequired)
+            {
+                tabControl1.Invoke(new RefreshTabPageDelegate(RefreshTabPageThreadSafe), tabPage);
+            }
+            else
+            {
+                if (tabControl1.TabPages.Count > tabPage)
+                    tabControl1.TabPages[tabPage].Refresh();
+            }
+        }
+
+
+        private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            myDateTime = new DateTime(monthCalendar1.SelectionStart.Date.Year, monthCalendar1.SelectionStart.Date.Month,
+                monthCalendar1.SelectionStart.Date.Day);
+            UpdateRooms();
+            tabControl1.TabPages[0].Invalidate();
+            Hide();
+            HotelBookForm hotelBookForm = new HotelBookForm(myDateTime);
+            hotelBookForm.Closed += (s, args) => Close();
+            hotelBookForm.Show();
+        }
+
+        private delegate void RefreshTabPageDelegate(int tabPage);
     }
 }

@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - Obligatorisk oppgave 2 - C#</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -43,10 +43,12 @@
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" runat="server" href="~/">Hotellbooking</a>
-                    <a class="navbar-brand" runat="server" href="~/CancelBooking.aspx">Kanseller booking</a>
-                </div>
+                    </div>
                 <div class="navbar-collapse collapse">
-                </div>
+                          <ul class="nav navbar-nav">
+        <li><a class="nav" runat="server" href="~/CancelBooking.aspx">Kanseller booking</a></li>
+       </ul>
+                    </div>
             </div>
         </div>
         <div class="container body-content">
