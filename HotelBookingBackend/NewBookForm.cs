@@ -74,9 +74,6 @@ namespace HotellBookWF
 
             Ds.Tables["booking"].Rows.Add(nrad);
             Da.Update(Ds, "booking");
-
-            //ResList.Add(_bookingString);
-
             Dispose();
         }
 
